@@ -13,6 +13,7 @@ import numpy as np
 # :param size:拉丁超立方层数
 # :return:样本数据
 
+
 def getSample(D, bounds, size):
     result = np.empty([size, D])
     temp = np.empty([size])
@@ -28,7 +29,7 @@ def getSample(D, bounds, size):
         for j in range(size):
             result[j, i] = temp[j]
 
-    #对样本数据进行拉伸
+    # 对样本数据进行拉伸
     b = np.array(bounds)
     lower_bounds = b[:,0]
     upper_bounds = b[:,1]

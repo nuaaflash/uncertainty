@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 import LHS
 from sys import path
+# TODO 修改为你的path
 path.append(r'F:\Blog\uncertainty\MysqlManager')
 import Oursql as oursql
 #抽样方法抽象类

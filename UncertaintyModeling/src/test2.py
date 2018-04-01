@@ -1,3 +1,5 @@
+from sys import path
+path.append(r'F:\Blog\uncertainty\UncertaintyModeling\src\model')
 from desc import description
 
 def function(x=[], a1=1, a2=1, a3=1, a4=1):

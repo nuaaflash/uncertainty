@@ -1,10 +1,14 @@
 # -*- coding:utf-8 -*-
 import numpy as np
 import matplotlib as mpl
+
 mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 import LHS
+from sys import path
+path.append(r'F:\Blog\uncertainty\MysqlManager')
+import Oursql as oursql
 #抽样方法抽象类
 class SamplingMethod(object):
     normal = 1
@@ -17,7 +21,7 @@ class SamplingMethod(object):
 class RandomSampling(SamplingMethod):
     def get_sampling(self, size, type, *parm):
         if type == self.normal:
-            return np.random.normal(parm[0], parm[1], size)
+            return np.random.normal(parm[0], parm[1], size).astype('float32')
         elif type == self.exponential:
             # 指数分布中的参数为 theta 而不是 lambda
             return np.random.exponential(parm[0], size)
@@ -55,6 +59,7 @@ if __name__ == '__main__':
             type = SamplingMethod.normal
             size = 1000
             s = strategy[1].GetResult(size, type, mu, sigma)
+            oursql.insert_sampling_result(s)
             count, bins, ignored = plt.hist(s, 30, normed=True)
             plt.plot(bins, 1 / (sigma * np.sqrt(2 * np.pi)) *np.exp(- (bins - mu) ** 2 / (2 * sigma ** 2)),linewidth = 2, color = 'r')
             plt.show()
@@ -74,6 +79,7 @@ if __name__ == '__main__':
             ax.yaxis.set_major_locator(MultipleLocator(ys))
             type2 = SamplingMethod.uniform
             samples = strategy[2].GetResult(size, type2, D, bounds)
+            oursql.insert_sampling_result(samples)
             XY = np.array(samples)
             X = XY[:, 0]
             Y = XY[:, 1]
@@ -87,6 +93,7 @@ if __name__ == '__main__':
             type = SamplingMethod.exponential
             size = 1000
             s = strategy[1].GetResult(size, type, theta)
+            oursql.insert_sampling_result(s)
             count, bins, ignored = plt.hist(s, 30, normed=True)
             plt.plot(bins, lamb * np.exp(-bins * lamb), linewidth=2, color='r')
             plt.show()

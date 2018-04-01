@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-
+from sys import path
+path.append(r'F:\Blog\uncertainty\MysqlManager')
 import mysql.connector
 from mysql.connector import Error
 import config

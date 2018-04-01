@@ -14,8 +14,8 @@ def insert_blob(project, _dir):
     
 #     _dir = unicode(_dir,"utf-8")
 
-    query = "insert into t_file(c_project, c_path, b_pyfile) " \
-            "values(%s, %s, %s)"
+    query = 'insert into t_file(c_project, c_path, b_pyfile) ' \
+            'values(%s, %s, %s)'
  
     db_config = config.datasourse
  

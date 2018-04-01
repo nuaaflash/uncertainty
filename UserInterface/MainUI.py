@@ -60,7 +60,7 @@ class PlatformForUncertainly(wx.Frame):
         self.m_panel1forStatusbar.SetSizer(bSizerforpanel1)
         self.m_panel1forStatusbar.Layout()
         bSizerforpanel1.Fit(self.m_panel1forStatusbar)
-        self.statusBar.AddPage(self.m_panel1forStatusbar, u"模型管理", True)
+        self.statusBar.AddPage(self.m_panel1forStatusbar, u"UncertaintyModeling", True)
         self.m_panel2forStatusbar = wx.Panel(self.statusBar, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize,
                                              wx.TAB_TRAVERSAL)
         bSizerforpanel2 = wx.BoxSizer(wx.HORIZONTAL)
@@ -177,7 +177,7 @@ class PlatformForUncertainly(wx.Frame):
         self.m_panel19 = wx.Panel(self.m_auinotebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
         bSizer17 = wx.BoxSizer(wx.VERTICAL)
 
-        self.m_auinotebook1.AddPage(self.m_panel19, u"模型管理", False, wx.NullBitmap)
+        self.m_auinotebook1.AddPage(self.m_panel19, u"UncertaintyModeling", False, wx.NullBitmap)
         self.m_auinotebook1.DeletePage(self.m_auinotebook1.GetPageIndex(self.m_panel19))
 
         self.m_panel20 = wx.Panel(self.m_auinotebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
@@ -355,7 +355,7 @@ class PlatformForUncertainly(wx.Frame):
             self.m_panel19.SetSizer(bSizer17)
             self.m_panel19.Layout()
             bSizer17.Fit(self.m_panel19)
-        self.m_auinotebook1.AddPage(self.m_panel19, u"模型管理", False, wx.NullBitmap)
+        self.m_auinotebook1.AddPage(self.m_panel19, u"UncertaintyModeling", False, wx.NullBitmap)
         self.Refresh()
 
     def ClickDataInit(self, event):

@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 import LHS
 from sys import path
+# TODO 修改为你的path
 path.append(r'F:\Blog\uncertainty\MysqlManager')
 import Oursql as oursql
 #抽样方法抽象类
@@ -14,17 +15,22 @@ class SamplingMethod(object):
     normal = 1
     uniform = 2
     exponential = 3
+
     def get_sampling(self, size, type, *parm):
         pass
+
 
 # 随机抽样方法子类
 class RandomSampling(SamplingMethod):
     def get_sampling(self, size, type, *parm):
         if type == self.normal:
-            return np.random.normal(parm[0], parm[1], size).astype('float32')
+            return np.random.normal(parm[0], parm[1], size)
+        elif type == self.uniform:
+            return np.random.uniform(parm[0], parm[1], size)
         elif type == self.exponential:
             # 指数分布中的参数为 theta 而不是 lambda
             return np.random.exponential(parm[0], size)
+
 
 # 拉丁超立方抽样方法子类
 class LHSampling(SamplingMethod):
@@ -37,7 +43,7 @@ class LHSampling(SamplingMethod):
 # 具体策略类
 class Context(object):
 
-    def __init__(self,csuper):
+    def __init__(self, csuper):
         self.csuper = csuper
 
     def GetResult(self, size, type, *parm):
@@ -48,7 +54,7 @@ if __name__ == '__main__':
     choose = 1
 
     while choose != 0:
-        choose = input("1.正态分布的随机抽样\n2.均匀分布的LHS抽样\n3.指数分布的随机抽样\n(再次选择请关掉弹出的窗口)退出请按0:\n")
+        choose = input("1.正态分布的随机抽样\n2.均匀分布的LHS抽样\n3.指数分布的随机抽样\n4.均匀分布的随机抽样\n(再次选择请关掉弹出的窗口)退出请按0:\n")
 
         strategy = {}
         strategy[1] = Context(RandomSampling())
@@ -97,3 +103,4 @@ if __name__ == '__main__':
             count, bins, ignored = plt.hist(s, 30, normed=True)
             plt.plot(bins, lamb * np.exp(-bins * lamb), linewidth=2, color='r')
             plt.show()
+

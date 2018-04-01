@@ -26,7 +26,7 @@ def insert_project(project):
 
 def insert_sampling_result(result=[]):
     result = list(result)
-    id = 90
+    id = 1
     for i in result:
         query = "insert into sampling_result(result_value,result_id) values(%s,%s)"
 

@@ -8,9 +8,9 @@ from matplotlib.ticker import MultipleLocator, FuncFormatter
 import LHS
 from sys import path
 # TODO 修改为你的path
-path.append(r'F:\Blog\uncertainty\MysqlManager')
+path.append(r'E:\GitHub\uncertainty\MysqlManager')
 import Oursql as oursql
-#抽样方法抽象类
+# 抽样方法抽象类
 class SamplingMethod(object):
     normal = 1
     uniform = 2

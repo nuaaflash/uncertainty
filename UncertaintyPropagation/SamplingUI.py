@@ -54,9 +54,3 @@ class SamplingDialog(wx.Dialog):
 		arg2 = float(self.m_textCtrl2.GetValue())
 		print arg1, arg2
 		return arg1, arg2
-
-
-app = wx.App(False)
-frame = SamplingDialog(None)
-frame.Show()
-app.MainLoop()

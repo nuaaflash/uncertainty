@@ -8,7 +8,7 @@ from matplotlib.ticker import MultipleLocator, FuncFormatter
 import LHS
 from sys import path
 # TODO 修改为你的path
-path.append(r'E:\GitHub\uncertainty\MysqlManager')
+path.append('..\MysqlManager')
 import Oursql as oursql
 # 抽样方法抽象类
 class SamplingMethod(object):
@@ -53,6 +53,7 @@ class Context(object):
 if __name__ == '__main__':
     choose = 1
 
+    oursql.clear_sampling_result()
     while choose != 0:
         choose = input("1.正态分布的随机抽样\n2.均匀分布的LHS抽样\n3.指数分布的随机抽样\n4.均匀分布的随机抽样\n(再次选择请关掉弹出的窗口)退出请按0:\n")
 
@@ -63,7 +64,7 @@ if __name__ == '__main__':
         if choose == 1:
             mu, sigma = 0, 0.1  # mean and standard deviation
             type = SamplingMethod.normal
-            size = 1000
+            size = 20
             s = strategy[1].GetResult(size, type, mu, sigma)
             oursql.insert_sampling_result(s)
             count, bins, ignored = plt.hist(s, 30, normed=True)
@@ -97,7 +98,7 @@ if __name__ == '__main__':
             theta = 2.0
             lamb = 1.0 / theta
             type = SamplingMethod.exponential
-            size = 1000
+            size = 20
             s = strategy[1].GetResult(size, type, theta)
             oursql.insert_sampling_result(s)
             count, bins, ignored = plt.hist(s, 30, normed=True)

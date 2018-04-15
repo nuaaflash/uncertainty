@@ -3,8 +3,8 @@
 
 datasourse = {
     'host': '118.89.198.205',
-    'user': 'root',
-    'password': '110010',
+    'user': 'certainty',
+    'password': 'Nuaa666',
     'port': 3306,
     'database': 'work',
     'charset': 'utf8'

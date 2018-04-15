@@ -14,6 +14,8 @@ import wx.grid
 import sys
 sys.path.append("..")
 import UncertaintyPropagation.SamplingUI as sui
+# TODO 修改为你的path
+sys.path.append('..\MysqlManager')
 
 
 ###########################################################################

@@ -24,6 +24,22 @@ def insert_project(project):
         cursor.close()
         conn.close()
 
+def clear_sampling_result():
+    query = "delete from  sampling_result"
+
+    db_config = config.datasourse
+
+    try:
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+        cursor.execute(query)
+        conn.commit()
+    except Error as e:
+        print(e)
+    finally:
+        cursor.close()
+        conn.close()
+
 def insert_sampling_result(result=[]):
     result = list(result)
     id = 1

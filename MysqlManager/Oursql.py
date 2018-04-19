@@ -40,13 +40,14 @@ def clear_sampling_result():
         cursor.close()
         conn.close()
 
+
 def insert_sampling_result(result=[]):
     result = list(result)
     id = 1
     for i in result:
         query = "insert into sampling_result(result_value,result_id) values(%s,%s)"
 
-        args = (float(i),id)
+        args = (float(i), id)
         id = id + 1
         db_config = config.datasourse
 
@@ -60,6 +61,7 @@ def insert_sampling_result(result=[]):
         finally:
             cursor.close()
             conn.close()
+
 
 if __name__ == '__main__':
     insert_project('模型1')

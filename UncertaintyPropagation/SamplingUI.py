@@ -68,11 +68,11 @@ class SamplingDialog(wx.Dialog):
         arg2 = float(self.m_textCtrl2.GetValue())
         arg3 = int(self.m_textCtrl3.GetValue())
 
-        mu= arg1  # mean and standard deviation
+        mu = arg1  # mean and standard deviation
         sigma = arg2
         type = SamplingMethod.normal
         size = arg3
-        parm = mu,sigma
+        parm = mu, sigma
         s = Context(RandomSampling()).GetResult(size, type, *parm)
         oursql.clear_sampling_result()
         oursql.insert_sampling_result(s)

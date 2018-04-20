@@ -4,12 +4,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# :param x_low: 样本的下界
-# :param x_high: 样本的上界
-# :param y_max: 样本概率密度函数在[x_low, x_high]上的最大值
-# :param expression: 样本的概率密度函数
-# :param size: 样本大小
-# :return: 样本数据
+# 计算概率密度函数最大值时的分割数
+# 在给定区间内等距离取cfeji个数计算概率密度函数的最大值
+cfeji = 1000
 
 
 def interpret(expression, x):
@@ -17,7 +14,28 @@ def interpret(expression, x):
 	return y
 
 
-def getSample(x_low, x_high, y_max, expression, size):
+# 计算概率密度函数在给定区间内的最大值
+def get_probability_density_function_max(x_low, x_high, expression):
+	if x_low >= x_high:
+		return -1
+	interval = (x_high - x_low)/cfeji
+	max_ = -1.0
+	for i in range(cfeji):
+		temp = interpret(expression, x_low)
+		if max_ < temp:
+			max_ = temp
+		x_low += interval
+	return max_
+
+
+# :param x_low: 样本的下界
+# :param x_high: 样本的上界
+# :param expression: 样本的概率密度函数
+# :param size: 样本大小
+# :return: 样本数据
+def getSample(x_low, x_high, expression, size):
+	# 求样本概率密度函数在[x_low, x_high]上的最大值
+	y_max = get_probability_density_function_max(x_low, x_high, expression)
 	result = np.empty([size])
 	while size > 0:
 		temp1 = np.random.uniform(x_low, x_high, 1)
@@ -33,8 +51,7 @@ if __name__ == '__main__':
 	low = 0.0
 	high = 1.0
 	size = 1000
-	max = 3.0
-	s = getSample(low, high, max, expr, size)
+	s = getSample(low, high, expr, size)
 	count, bins, ignored = plt.hist(s, 30, normed=True)
-	plt.plot(bins, 3 * bins ** 2, linewidth=2, color='r')
+	plt.plot(bins, 4 * bins ** 3, linewidth=2, color='r')
 	plt.show()

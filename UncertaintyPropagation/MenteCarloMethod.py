@@ -15,7 +15,7 @@ def interpret(expression, x):
 
 
 # 计算概率密度函数在给定区间内的最大值
-def get_probability_density_function_max(x_low, x_high, expression):
+def get_probability_density_function_max(expression, x_low, x_high):
 	if x_low >= x_high:
 		return -1
 	interval = (x_high - x_low)/cfeji
@@ -33,10 +33,12 @@ def get_probability_density_function_max(x_low, x_high, expression):
 # :param expression: 样本的概率密度函数
 # :param size: 样本大小
 # :return: 样本数据
-def getSample(x_low, x_high, expression, size):
+def getSample(expression, x_low, x_high, size):
 	# 求样本概率密度函数在[x_low, x_high]上的最大值
-	y_max = get_probability_density_function_max(x_low, x_high, expression)
+	y_max = get_probability_density_function_max(expression, x_low, x_high)
 	result = np.empty([size])
+	if y_max < 0:
+		return result
 	while size > 0:
 		temp1 = np.random.uniform(x_low, x_high, 1)
 		temp2 = np.random.uniform(0, y_max, 1)
@@ -51,7 +53,7 @@ if __name__ == '__main__':
 	low = 0.0
 	high = 1.0
 	size = 1000
-	s = getSample(low, high, expr, size)
+	s = getSample(expr, low, high, size)
 	count, bins, ignored = plt.hist(s, 30, normed=True)
 	plt.plot(bins, 4 * bins ** 3, linewidth=2, color='r')
 	plt.show()

@@ -6,10 +6,13 @@ mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator, FuncFormatter
 import LHS
+import MenteCarloMethod
 from sys import path
 # TODO 修改为你的path
 path.append('E:\GitHub\uncertainty\MysqlManager')
 import Oursql as oursql
+
+
 # 抽样方法抽象类
 class SamplingMethod(object):
     normal = 1
@@ -37,7 +40,7 @@ class RandomSampling(SamplingMethod):
 class LHSampling(SamplingMethod):
     def get_sampling(self, size, type, *parm):
         if type == self.uniform:
-            print (parm[0])
+            print parm[0]
             return LHS.getSample(parm[0], parm[1], size)
 
 
@@ -45,8 +48,8 @@ class LHSampling(SamplingMethod):
 class MonteCarloSampling(SamplingMethod):
     def get_sampling(self, size, type, *parm):
         if type == self.other:
-            print (parm[0])
-            return LHS.getSample(parm[0], parm[1], size)
+            print parm[0]
+            return MenteCarloMethod.getSample(parm[0], parm[1], parm[2], size)
 
 
 # 具体策略类
@@ -59,6 +62,12 @@ class Context(object):
         return self.csuper.get_sampling(size, type, *parm)
 
 
+strategy = {}
+strategy[1] = Context(RandomSampling())
+strategy[2] = Context(LHSampling())
+strategy[3] = Context(MonteCarloSampling())
+
+'''
 if __name__ == '__main__':
     choose = 1
 
@@ -69,6 +78,7 @@ if __name__ == '__main__':
         strategy = {}
         strategy[1] = Context(RandomSampling())
         strategy[2] = Context(LHSampling())
+        strategy[3] = Context(MonteCarloSampling())
         # test RS for normal
         if choose == 1:
             mu, sigma = 0, 0.1  # mean and standard deviation
@@ -113,4 +123,4 @@ if __name__ == '__main__':
             count, bins, ignored = plt.hist(s, 30, normed=True)
             plt.plot(bins, lamb * np.exp(-bins * lamb), linewidth=2, color='r')
             plt.show()
-
+'''

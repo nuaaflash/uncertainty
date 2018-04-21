@@ -13,6 +13,8 @@ import wx.aui
 import wx.grid
 import sys
 sys.path.append("..")
+sys.path.append("../MysqlManager")
+import Oursql as oursql
 import UncertaintyPropagation.SamplingUI as sui
 
 
@@ -29,8 +31,7 @@ class PlatformForUncertainly(wx.Frame):
         self.icon = wx.Icon('img/timg (3).jpg', wx.BITMAP_TYPE_JPEG)
         self.SetIcon(self.icon)
 
-        self.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
-
+        self.SetSizeHintsSz(wx.DefaultSize, wx.DefaultSize)
         bSizerforwholeframe = wx.BoxSizer(wx.VERTICAL)
 
         self.m_panelfor = wx.Panel(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
@@ -210,31 +211,31 @@ class PlatformForUncertainly(wx.Frame):
         self.m_panel19 = wx.Panel(self.m_auinotebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
         bSizer17 = wx.BoxSizer(wx.VERTICAL)
 
-        self.m_auinotebook1.AddPage(self.m_panel19, u"模型管理", False, wx.NullBitmap)
+        self.m_auinotebook1.AddPage(self.m_panel19, u"模型管理", False)
         self.m_auinotebook1.DeletePage(self.m_auinotebook1.GetPageIndex(self.m_panel19))
 
         self.m_panel20 = wx.Panel(self.m_auinotebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
         bSizer18 = wx.BoxSizer(wx.VERTICAL)
 
-        self.m_auinotebook1.AddPage(self.m_panel20, u"不确定性建模", False, wx.NullBitmap)
+        self.m_auinotebook1.AddPage(self.m_panel20, u"不确定性建模", False)
         self.m_auinotebook1.DeletePage(self.m_auinotebook1.GetPageIndex(self.m_panel20))
 
         self.m_panel21 = wx.Panel(self.m_auinotebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
         bSizer19 = wx.BoxSizer(wx.VERTICAL)
 
-        self.m_auinotebook1.AddPage(self.m_panel21, u"不确定性传播分析", False, wx.NullBitmap)
+        self.m_auinotebook1.AddPage(self.m_panel21, u"不确定性传播分析", False)
         self.m_auinotebook1.DeletePage(self.m_auinotebook1.GetPageIndex(self.m_panel21))
 
         self.m_panel22 = wx.Panel(self.m_auinotebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
         bSizer20 = wx.BoxSizer(wx.VERTICAL)
 
-        self.m_auinotebook1.AddPage(self.m_panel22, u"仿真验证分析", True, wx.NullBitmap)
+        self.m_auinotebook1.AddPage(self.m_panel22, u"仿真验证分析", True)
         self.m_auinotebook1.DeletePage(self.m_auinotebook1.GetPageIndex(self.m_panel22))
 
         self.m_panel23 = wx.Panel(self.m_auinotebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize,
                                   wx.TAB_TRAVERSAL)
         bSizer13 = wx.BoxSizer(wx.VERTICAL)
-        self.m_auinotebook1.AddPage(self.m_panel23, u"智能校准分析", False, wx.NullBitmap)
+        self.m_auinotebook1.AddPage(self.m_panel23, u"智能校准分析", False)
         self.m_auinotebook1.DeletePage(self.m_auinotebook1.GetPageIndex(self.m_panel23))
 
         bSizer5.Add(self.m_auinotebook1, 4, wx.EXPAND | wx.ALL, 5)
@@ -364,8 +365,9 @@ class PlatformForUncertainly(wx.Frame):
 
             self.m_grid11 = wx.grid.Grid(self.m_panel21, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
 
+            results = oursql.show_sampling_result()
             # Grid
-            self.m_grid11.CreateGrid(5, 5)
+            self.m_grid11.CreateGrid(len(results), 4)
             self.m_grid11.EnableEditing(True)
             self.m_grid11.EnableGridLines(True)
             self.m_grid11.EnableDragGridSize(False)
@@ -376,11 +378,24 @@ class PlatformForUncertainly(wx.Frame):
             self.m_grid11.EnableDragColSize(True)
             self.m_grid11.SetColLabelSize(30)
             self.m_grid11.SetColLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+            self.m_grid11.SetColLabelValue(0, "抽样编号")
+            self.m_grid11.SetColLabelValue(1, "抽样数据")
+            self.m_grid11.SetColLabelValue(2, "抽样方法")
+            self.m_grid11.SetColLabelValue(3, "分布类型")
 
             # Rows
             self.m_grid11.EnableDragRowSize(True)
             self.m_grid11.SetRowLabelSize(80)
             self.m_grid11.SetRowLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+
+            # 设置内容
+            i = 0
+            for row in results:
+                self.m_grid11.SetCellValue(i, 0, str(row[0]))
+                self.m_grid11.SetCellValue(i, 1, str(row[1]))
+                self.m_grid11.SetCellValue(i, 2, str(row[2]))
+                self.m_grid11.SetCellValue(i, 3, str(row[3]))
+                i = i + 1
 
             # Label Appearance
 

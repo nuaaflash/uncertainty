@@ -75,7 +75,7 @@ class SamplingDialog(wx.Dialog):
         parm = mu,sigma
         s = Context(RandomSampling()).GetResult(size, type, *parm)
         oursql.clear_sampling_result()
-        oursql.insert_sampling_result(s)
+        oursql.insert_sampling_result(s,"normal","random")
         count, bins, ignored = plt.hist(s, 30, normed=True)
         plt.plot(bins, 1 / (sigma * np.sqrt(2 * np.pi)) * np.exp(- (bins - mu) ** 2 / (2 * sigma ** 2)), linewidth=2,
                  color='r')

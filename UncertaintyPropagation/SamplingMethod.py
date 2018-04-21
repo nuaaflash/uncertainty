@@ -8,13 +8,14 @@ from matplotlib.ticker import MultipleLocator, FuncFormatter
 import LHS
 from sys import path
 # TODO 修改为你的path
-path.append('..\MysqlManager')
+path.append('E:\GitHub\uncertainty\MysqlManager')
 import Oursql as oursql
 # 抽样方法抽象类
 class SamplingMethod(object):
     normal = 1
     uniform = 2
     exponential = 3
+    other = 0
 
     def get_sampling(self, size, type, *parm):
         pass
@@ -36,6 +37,14 @@ class RandomSampling(SamplingMethod):
 class LHSampling(SamplingMethod):
     def get_sampling(self, size, type, *parm):
         if type == self.uniform:
+            print (parm[0])
+            return LHS.getSample(parm[0], parm[1], size)
+
+
+# 基于 Monte Carlo 方法的任意概率密度抽样方法子类
+class MonteCarloSampling(SamplingMethod):
+    def get_sampling(self, size, type, *parm):
+        if type == self.other:
             print (parm[0])
             return LHS.getSample(parm[0], parm[1], size)
 

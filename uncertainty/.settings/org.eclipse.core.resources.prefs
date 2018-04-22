@@ -3,3 +3,6 @@ encoding//src/MainUI/MainApp.py=utf-8
 encoding//src/MainUI/MainUI.py=utf-8
 encoding//src/MainUI/guiManager.py=utf-8
 encoding//src/MainUI/loginFrame.py=utf-8
+encoding//src/ModelManage/ModelUi.py=utf-8
+encoding//src/ModelManage/NavPanel.py=utf-8
+encoding//src/ModelManage/ShowPanel.py=utf-8

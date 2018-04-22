@@ -11,9 +11,9 @@ class MainAPP(wx.App):
         self.frame.Show()
         return True
 
-    def UpdateUI(self, type, params):
+    def UpdateUI(self, ftype, params):
         self.frame.Destroy()
-        self.frame = self.manager.GetFrame(type, params)
+        self.frame = self.manager.GetFrame(ftype, params)
         self.frame.Show(True)
 
 def main():

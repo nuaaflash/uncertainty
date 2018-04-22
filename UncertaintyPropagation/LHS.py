@@ -8,6 +8,7 @@ import numpy as np
 # #http://blog.csdn.net/luminganan/article/details/51322234 安装方法
 # import matplotlib.pyplot as pl
 
+# 暂时只能进行对均匀分布做LHS抽样
 # :param D:参数个数
 # :param bounds:参数对应范围（list）
 # :param size:拉丁超立方层数

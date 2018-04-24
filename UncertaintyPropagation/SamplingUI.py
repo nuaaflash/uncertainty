@@ -222,7 +222,7 @@ class SamplingDialog(wx.Dialog):
 
         s = strategy[strtgy].GetResult(size, type, *parm)
         oursql.clear_sampling_result()
-        oursql.insert_sampling_result(s)
+        oursql.insert_sampling_result(s,"normal","random")
         count, bins, ignored = plt.hist(s, 30, normed=True)
         # plt.plot(bins, 4 * bins **3, linewidth=2,
         #         color='r')

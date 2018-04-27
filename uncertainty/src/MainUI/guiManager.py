@@ -10,7 +10,8 @@ class GuiManager():
     def GetFrame(self, ftype, params):
         frame = self.CreateFrame(ftype, params)
         return frame
-
+    
+    #根据标志位判断显示哪个frame
     def CreateFrame(self, ftype, params):
         if ftype == 0:
             return loginFrame.LoginFrame(parent=None, id=ftype, UpdateUI=self.UpdateUI)

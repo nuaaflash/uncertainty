@@ -5,16 +5,13 @@ import config
 import sql
 import mysql.connector
 
-class NavPanel(wx.Panel):
+class NavTree(wx.TreeCtrl):
     
     def __init__(self, parent = None):
         
-        wx.Panel.__init__(self, parent, wx.ID_ANY, wx.DefaultPosition, 
-                          wx.DefaultSize, wx.TAB_TRAVERSAL)
+        wx.TreeCtrl.__init__(self, parent, wx.ID_ANY, wx.DefaultPosition, 
+                          wx.DefaultSize, wx.TR_DEFAULT_STYLE)
         
-        
-        self.m_treeCtrl4 = wx.TreeCtrl(self, wx.ID_ANY, wx.DefaultPosition, wx.Size(360, 500),
-                                       wx.TR_DEFAULT_STYLE)
         
         db_config = config.datasourse
         try:
@@ -29,13 +26,12 @@ class NavPanel(wx.Panel):
             cursor.close()
             conn.close()
             
-        str = record[0][0]
         """左侧树状图"""
-        root = self.m_treeCtrl4.AddRoot('模型')
+        root = self.AddRoot('模型')
         tree = [[0]*10]*10
         i = 0
         for model in record:
-            tree[i] = self.m_treeCtrl4.AppendItem(root, model[0])
+            tree[i] = self.AppendItem(root, model[0])
             i += 1
 #         os = self.m_treeCtrl4.AppendItem(root, str)
 #         pl = self.m_treeCtrl4.AppendItem(root, str)

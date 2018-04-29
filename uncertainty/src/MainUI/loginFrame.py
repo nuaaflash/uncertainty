@@ -6,6 +6,7 @@ import config
 import sql
 import mysql.connector
 
+#登录界面
 class LoginFrame(wx.Frame):
     def __init__(self, parent=None, id=-1, UpdateUI=None):
         px = wx.DisplaySize()
@@ -54,7 +55,8 @@ class LoginFrame(wx.Frame):
         
     def cancleEvent(self, event):
         wx.Exit()
-        
+    
+    #登录验证    
     def validate(self):
         db_config = config.datasourse
         try:

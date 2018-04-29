@@ -20,11 +20,7 @@ class ModelPanel(wx.Panel):
         tabSizer = wx.BoxSizer(wx.HORIZONTAL)
         self.btnPanel.SetSizer(tabSizer)
         
-        self.button = wx.Button(self.btnPanel, wx.ID_ANY, u"项目创建", 
-                                 wx.DefaultPosition, wx.DefaultSize, 0)
-        tabSizer.Add(self.button, 0, wx.ALL, 5)
-        
-        self.button1 = wx.Button(self.btnPanel, wx.ID_ANY, u"模型导入", 
+        self.button1 = wx.Button(self.btnPanel, wx.ID_ANY, u"模型设置", 
                                  wx.DefaultPosition, wx.DefaultSize, 0)
 #         self.button1.SetBitmap(wx.Bitmap('icon/btn_show1.tga'))
         self.button1.Bind(wx.EVT_LEFT_DOWN, self.ClickModelManage)

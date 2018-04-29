@@ -4,16 +4,15 @@ import wx
 from wx import aui
 from wx import grid
 
-class ShowPanel(wx.Panel):
+class ShowNotebook(aui.AuiNotebook):
     
     def __init__(self, parent = None):
         
-        wx.Panel.__init__(self, parent, wx.ID_ANY, wx.DefaultPosition, 
-                          wx.DefaultSize, wx.TAB_TRAVERSAL)
+        aui.AuiNotebook.__init__(self, parent, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize,
+                                                aui.AUI_NB_DEFAULT_STYLE)
+        self.m_panel19 = wx.Panel(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
         
-#         self.m_auinotebook1 = aui.AuiNotebook(self, wx.ID_ANY, wx.DefaultPosition, wx.Size(800, 500),
-#                                                  aui.AUI_NB_DEFAULT_STYLE)
-#         self.m_panel19 = wx.Panel(self.m_auinotebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
+        self.AddPage(self.m_panel19, u"模型信息", False, wx.NullBitmap)
 #         bSizer17 = wx.BoxSizer(wx.VERTICAL)
 # 
 #         self.m_auinotebook1.AddPage(self.m_panel19, u"UncertaintyModeling", False, wx.NullBitmap)

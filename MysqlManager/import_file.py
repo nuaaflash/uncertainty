@@ -36,6 +36,7 @@ def insert_blob(project, _dir):
         cursor.close()
         conn.close()
 
+
 if __name__ == '__main__':
     insert_blob(project='一元非线性回归', _dir =r"E:\MyEclipse 2015 CI\test\src\model")
 

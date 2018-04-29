@@ -61,6 +61,7 @@ def insert_sampling_result(result=[],type = "",method = ""):
             cursor.close()
             conn.close()
 
+			
 def show_sampling_result():
 
     query = "select * from sampling_result order by result_id"
@@ -81,5 +82,7 @@ def show_sampling_result():
         print(e)
     cursor.close()
     conn.close()
+	
+	
 if __name__ == '__main__':
     insert_project('模型1')

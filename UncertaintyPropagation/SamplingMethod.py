@@ -8,7 +8,7 @@ from matplotlib.ticker import MultipleLocator, FuncFormatter
 import LHS
 from sys import path
 # TODO 修改为你的path
-path.append('..\MysqlManager')
+path.append('/home/xiahan/PycharmProjects/uncertainty/MysqlManager')
 import Oursql as oursql
 # 抽样方法抽象类
 class SamplingMethod(object):
@@ -66,7 +66,7 @@ if __name__ == '__main__':
             type = SamplingMethod.normal
             size = 20
             s = strategy[1].GetResult(size, type, mu, sigma)
-            oursql.insert_sampling_result(s)
+            oursql.insert_sampling_result(s,"normal","random")
             count, bins, ignored = plt.hist(s, 30, normed=True)
             plt.plot(bins, 1 / (sigma * np.sqrt(2 * np.pi)) *np.exp(- (bins - mu) ** 2 / (2 * sigma ** 2)),linewidth = 2, color = 'r')
             plt.show()
@@ -86,7 +86,7 @@ if __name__ == '__main__':
             ax.yaxis.set_major_locator(MultipleLocator(ys))
             type2 = SamplingMethod.uniform
             samples = strategy[2].GetResult(size, type2, D, bounds)
-            oursql.insert_sampling_result(samples)
+            oursql.insert_sampling_result(samples,"uniform","LHS")
             XY = np.array(samples)
             X = XY[:, 0]
             Y = XY[:, 1]
@@ -100,7 +100,7 @@ if __name__ == '__main__':
             type = SamplingMethod.exponential
             size = 20
             s = strategy[1].GetResult(size, type, theta)
-            oursql.insert_sampling_result(s)
+            oursql.insert_sampling_result(s,"Exponential","RS")
             count, bins, ignored = plt.hist(s, 30, normed=True)
             plt.plot(bins, lamb * np.exp(-bins * lamb), linewidth=2, color='r')
             plt.show()

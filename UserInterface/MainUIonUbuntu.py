@@ -15,7 +15,7 @@ import sys
 sys.path.append("..")
 sys.path.append("../MysqlManager")
 import Oursql as oursql
-import UncertaintyPropagation.SamplingUI as sui
+import UncertaintyPropagation.SamplingUIOnLinux as sui
 
 
 ###########################################################################
@@ -365,7 +365,7 @@ class PlatformForUncertainly(wx.Frame):
 
             self.m_grid11 = wx.grid.Grid(self.m_panel21, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
 
-            results = oursql.show_sampling_result()
+            results = oursql.show__result()
             # Grid
             self.m_grid11.CreateGrid(len(results), 4)
             self.m_grid11.EnableEditing(True)
@@ -528,7 +528,7 @@ class PlatformForUncertainly(wx.Frame):
         self.CreateIntelligentalibrationPanel()
 
     def SamplingSettings(self, event):
-        frame = sui.SamplingDialog(None)
+        frame = sui.SamplingDialogOnLinux(None)
         frame.Show()
 
 app = wx.App(False)

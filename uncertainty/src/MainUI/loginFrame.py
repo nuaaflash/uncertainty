@@ -2,11 +2,17 @@
 import wx
 # 导入wxPython中的通用Button
 import wx.lib.buttons as wxButton
+import sys
+sys.path.append('C:/Users/Zhang Wanpeng/Desktop/uncertainty/uncertainty/src')
+import config
+import sql
+import mysql.connector
 
 class LoginFrame(wx.Frame):
     def __init__(self, parent=None, id=-1, UpdateUI=None):
-        wx.Frame.__init__(self, parent, id, title='登录界面', size=(320, 200))
-
+        px = wx.DisplaySize()
+        wx.Frame.__init__(self, parent, id=wx.ID_ANY, title='登录界面', size=(320, 200), 
+                          pos=(px[0]/3, px[1]/3))
         self.UpdateUI = UpdateUI
         self.InitUI() # 绘制UI界面
 
@@ -41,12 +47,35 @@ class LoginFrame(wx.Frame):
 
 
     def loginFunction(self, event):
-        account = self.accountInput.GetValue()
-        password = self.passwordInput.GetValue()
-        params = {"account":account}
-        self.Destroy()
-        print '接收到用户的输入：', params
-        self.UpdateUI(1, params) #更新UI-Frame
+        self.account = self.accountInput.GetValue()
+        self.password = self.passwordInput.GetValue()
+        if self.validate():
+            params = {"account":self.account}
+            self.Destroy()
+            self.UpdateUI(1, params) #更新UI-Frame
         
     def cancleEvent(self, event):
         wx.Exit()
+        
+    def validate(self):
+        db_config = config.datasourse
+        try:
+            conn = mysql.connector.connect(**db_config)
+            cursor = conn.cursor()
+            args = (self.account,)
+            cursor.execute(sql.loginSql, args)
+            record = cursor.fetchone()
+        except mysql.connector.Error as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
+        if record == None:
+            dlg = wx.MessageDialog(None, u"此用户不存在", u"登录失败", wx.OK | wx.ICON_EXCLAMATION)
+            dlg.ShowModal()
+            return False
+        if record[1] != self.password:
+            dlg = wx.MessageDialog(None, u"密码错误", u"登录失败", wx.OK | wx.ICON_EXCLAMATION)
+            dlg.ShowModal()
+            return False
+        return True   

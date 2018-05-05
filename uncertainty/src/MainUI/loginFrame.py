@@ -3,8 +3,7 @@ import wx
 # 导入wxPython中的通用Button
 import wx.lib.buttons as wxButton
 import config
-import sql
-import mysql.connector
+impimport Sqlmport mysql.connector
 
 #登录界面
 class LoginFrame(wx.Frame):
@@ -63,8 +62,7 @@ class LoginFrame(wx.Frame):
             conn = mysql.connector.connect(**db_config)
             cursor = conn.cursor()
             args = (self.account,)
-            cursor.execute(sql.loginSql, args)
-            record = cursor.fetchone()
+            cursor.execute(sql.loginSql, args)Sql          record = cursor.fetchone()
         except mysql.connector.Error as e:
             print(e)
         finally:

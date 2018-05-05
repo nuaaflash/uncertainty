@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import wx
-import config
-import sql
-import mysql.connector
+import Sql
+
 
 class NavTree(wx.TreeCtrl):
     
@@ -13,25 +12,19 @@ class NavTree(wx.TreeCtrl):
                           wx.DefaultSize, wx.TR_DEFAULT_STYLE)
         
         
-        db_config = config.datasourse
-        try:
-            conn = mysql.connector.connect(**db_config)
-            cursor = conn.cursor()
-            args = ()
-            cursor.execute(sql.modelSql, args)
-            record = cursor.fetchall()
-        except mysql.connector.Error as e:
-            print(e)
-        finally:
-            cursor.close()
-            conn.close()
+        record = Sql.selectSql(sql=Sql.modelSql)
             
         """左侧树状图"""
         root = self.AddRoot('模型')
-        tree = [[0]*10]*10
+        tree = [0]*100
+        treeMap = {}
         i = 0
         for model in record:
-            tree[i] = self.AppendItem(root, model[0])
+            if(model[2] == 0):    #最上层节点
+                tree[i] = self.AppendItem(root, model[1], data=model[0])
+            else:    #子节点
+                tree[i] = self.AppendItem(treeMap[model[2]], model[1], data=model[0])
+            treeMap[model[0]] = tree[i]
             i += 1
 #         os = self.m_treeCtrl4.AppendItem(root, str)
 #         pl = self.m_treeCtrl4.AppendItem(root, str)

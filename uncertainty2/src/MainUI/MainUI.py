@@ -9,6 +9,7 @@
 
 import wx
 from ModelManage import ModelUi
+from src import import
 
 #主界面
 class PlatformForUncertainly(wx.Frame):

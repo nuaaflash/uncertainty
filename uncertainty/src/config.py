@@ -18,3 +18,9 @@ datasourse = {
 #     'database': 'work',
 #     'charset': 'utf8'
 # }
+
+main_file = 'test1'
+
+func_name = 'function'
+
+descr_name = 'description' 

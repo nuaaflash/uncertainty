@@ -9,13 +9,34 @@ class NavTree(wx.TreeCtrl):
     def __init__(self, parent = None):
         
         wx.TreeCtrl.__init__(self, parent, wx.ID_ANY, wx.DefaultPosition, 
-                          wx.DefaultSize, wx.TR_DEFAULT_STYLE)
+                          wx.DefaultSize, wx.TR_DEFAULT_STYLE | wx.TR_EDIT_LABELS)
         
+        self.updateTree()
+        
+#更新导航栏树
+    def updateTree(self):
+        # Create an image list
+        il = wx.ImageList(16,16)
+
+        # Get some standard images from the art provider and add them
+        # to the image list
+        self.fldridx = il.Add(
+            wx.ArtProvider.GetBitmap(wx.ART_FOLDER, wx.ART_OTHER, (16,16)))
+        self.fldropenidx = il.Add(
+            wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN,   wx.ART_OTHER, (16,16)))
+        self.fileidx = il.Add(
+            wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE, wx.ART_OTHER, (16,16)))
+
+        self.DeleteAllItems()
         
         record = Sql.selectSql(sql=Sql.modelSql)
             
         """左侧树状图"""
-        root = self.AddRoot('模型')
+        root = self.AddRoot('模型', data=0)
+        self.SetItemImage(root, self.fldridx,
+                               wx.TreeItemIcon_Normal)
+        self.SetItemImage(root, self.fldropenidx,
+                               wx.TreeItemIcon_Expanded)
         tree = [0]*100
         treeMap = {}
         i = 0
@@ -24,30 +45,10 @@ class NavTree(wx.TreeCtrl):
                 tree[i] = self.AppendItem(root, model[1], data=model[0])
             else:    #子节点
                 tree[i] = self.AppendItem(treeMap[model[2]], model[1], data=model[0])
+            self.SetItemImage(tree[i], self.fldridx,
+                                       wx.TreeItemIcon_Normal)
+            self.SetItemImage(tree[i], self.fldropenidx,
+                                       wx.TreeItemIcon_Expanded)
             treeMap[model[0]] = tree[i]
             i += 1
-#         os = self.m_treeCtrl4.AppendItem(root, str)
-#         pl = self.m_treeCtrl4.AppendItem(root, str)
-#         tk = self.m_treeCtrl4.AppendItem(root, '工具套件')
-#         self.m_treeCtrl4.AppendItem(os, 'Linux')
-#         self.m_treeCtrl4.AppendItem(os, 'FreeBSD')
-#         self.m_treeCtrl4.AppendItem(os, 'OpenBSD')
-#         self.m_treeCtrl4.AppendItem(os, 'NetBSD')
-#         self.m_treeCtrl4.AppendItem(os, 'Solaris')
-#         cl = self.m_treeCtrl4.AppendItem(pl, '编译语言')
-#         sl = self.m_treeCtrl4.AppendItem(pl, '脚本语言')
-#         self.m_treeCtrl4.AppendItem(cl, 'Java')
-#         self.m_treeCtrl4.AppendItem(cl, 'C++')
-#         self.m_treeCtrl4.AppendItem(cl, 'C')
-#         self.m_treeCtrl4.AppendItem(cl, 'Pascal')
-#         self.m_treeCtrl4.AppendItem(sl, 'Ruby')
-#         self.m_treeCtrl4.AppendItem(sl, 'Tcl')
-#         self.m_treeCtrl4.AppendItem(sl, 'PHP')
-#         self.m_treeCtrl4.AppendItem(sl, 'Python')
-#         self.m_treeCtrl4.AppendItem(tk, 'Qt')
-#         self.m_treeCtrl4.AppendItem(tk, 'MFC')
-#         self.m_treeCtrl4.AppendItem(tk, 'wxPython')
-#         self.m_treeCtrl4.AppendItem(tk, 'GTK+')
-#         self.m_treeCtrl4.AppendItem(tk, 'Swing')
-#         self.m_treeCtrl4.Bind(wx.EVT_TREE_SEL_CHANGED,
-#                        self.OnSelChanged, id=1)
+#         self.m_treeCtrl4.Bind(wx.EVT_TREE_SEL_CHANGED, self.OnSelChanged, id=1)

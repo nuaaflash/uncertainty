@@ -51,6 +51,7 @@ class PlatformForUncertainly(wx.Frame):
         #上方导航页签
         self.statusBar = wx.Notebook(self.main_panel, wx.ID_ANY, 
                                      wx.DefaultPosition, wx.DefaultSize, 0)
+        self.statusBar.SetPadding(wx.Size(20,5))
         bSizerforwholepanel.Add(self.statusBar, 1, wx.EXPAND | wx.ALL, 5)
         
         #每个页签下加入各功能模块panel
@@ -74,7 +75,6 @@ class PlatformForUncertainly(wx.Frame):
         w, h = self.userPanel.GetSize()
         self.userPanel.SetPosition((x - w - 25, 0))  
         self.Refresh()
-        
         self.main_panel.Layout()
     
         

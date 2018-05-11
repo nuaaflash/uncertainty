@@ -1,9 +1,9 @@
 #coding=utf-8
 import wx
 # 导入wxPython中的通用Button
-import wx.lib.buttons as wxButton
 import config
-impimport Sqlmport mysql.connector
+import mysql.connector
+import Sql
 
 #登录界面
 class LoginFrame(wx.Frame):
@@ -57,22 +57,12 @@ class LoginFrame(wx.Frame):
     
     #登录验证    
     def validate(self):
-        db_config = config.datasourse
-        try:
-            conn = mysql.connector.connect(**db_config)
-            cursor = conn.cursor()
-            args = (self.account,)
-            cursor.execute(sql.loginSql, args)Sql          record = cursor.fetchone()
-        except mysql.connector.Error as e:
-            print(e)
-        finally:
-            cursor.close()
-            conn.close()
-        if record == None:
+        record = Sql.selectSql((self.account,), Sql.loginSql)
+        if record == []:
             dlg = wx.MessageDialog(None, u"此用户不存在", u"登录失败", wx.OK | wx.ICON_EXCLAMATION)
             dlg.ShowModal()
             return False
-        if record[1] != self.password:
+        if record[0][1] != self.password:
             dlg = wx.MessageDialog(None, u"密码错误", u"登录失败", wx.OK | wx.ICON_EXCLAMATION)
             dlg.ShowModal()
             return False

@@ -2,7 +2,7 @@
 
 import wx
 import config
-import sql
+import Sql as sql
 import mysql.connector
 
 class NavTree(wx.TreeCtrl):

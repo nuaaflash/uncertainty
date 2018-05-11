@@ -17,6 +17,10 @@ importSql = "insert into t_file(n_project, c_dir, c_filename, b_pyfile) " \
             
 exportSql = "SELECT c_dir, c_filename, b_pyfile FROM t_file WHERE n_project = %s"
 
+model_d_Sql = "SELECT arg_name FROM model_arg ORDER BY arg_id"
+
+get_model_Sql = "SELECT m.model_name, a.arg_name, a.dis_type, a.dis_arg FROM model_arg a, model m  WHERE m.model_id = a.model_id AND a.arg_name = "
+
 def selectSql(args=(), sql=''):
     db_config = config.datasourse
     try:

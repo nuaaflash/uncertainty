@@ -4,7 +4,7 @@ import wx
 import config
 import Sql
 import mysql.connector
-
+import ShowNotebook
 
 class NavTree(wx.TreeCtrl):
 
@@ -65,14 +65,9 @@ class NavTree(wx.TreeCtrl):
             """"参数名称"""""
             # parname = record[0][4]
             # print(parname)
-            # """""更新UPSP"""
-            # showPanel = UPShowPanel.ShowPanel()
+            """""更新UPSP"""
+            showNotebook = ShowNotebook.ShowNotebook()
 
-            # 设置内容
-            # i = 0
-            # for row in record:
-            #     showPanel.m_grid4.SetCellValue(i, 0, str(row[0]))
-            #     showPanel.m_grid4.SetCellValue(i, 1, str(row[1]))
-            #     showPanel.m_grid4.SetCellValue(i, 2, str(row[2]))
-            #     showPanel.m_grid4.SetCellValue(i, 3, str(row[3]))
-            #     i = i + 1
+
+
+            showNotebook.ShowArg(record)

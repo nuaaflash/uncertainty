@@ -26,13 +26,13 @@ class NavTree(wx.TreeCtrl):
             cursor.close()
             conn.close()
             
-        """左侧树状图"""
-        root = self.AddRoot('模型')
-        tree = [[0]*10]*10
-        i = 0
-        for model in record:
-            tree[i] = self.AppendItem(root, model[0])
-            i += 1
+        # """左侧树状图"""
+        # root = self.AddRoot('模型')
+        # tree = [[0]*10]*10
+        # i = 0
+        # for model in record:
+        #     tree[i] = self.AppendItem(root, model[0])
+        #     i += 1
 #         os = self.m_treeCtrl4.AppendItem(root, str)
 #         pl = self.m_treeCtrl4.AppendItem(root, str)
 #         tk = self.m_treeCtrl4.AppendItem(root, '工具套件')

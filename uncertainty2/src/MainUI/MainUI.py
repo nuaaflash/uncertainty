@@ -9,8 +9,7 @@
 
 import wx
 from ModelManage import ModelUi
-from src import import
-
+from UP2 import UncertaintyPropagationUi
 #主界面
 class PlatformForUncertainly(wx.Frame):
     
@@ -57,13 +56,13 @@ class PlatformForUncertainly(wx.Frame):
         
         #每个页签下加入各功能模块panel
         self.model_panel = ModelUi.ModelPanel(self.statusBar)
-#         self.model_panel2 = ModelUi.ModelPanel(self.statusBar)
-#         self.model_panel3 = ModelUi.ModelPanel(self.statusBar)
-#         self.model_panel4 = ModelUi.ModelPanel(self.statusBar)
+        self.model_panel2 = ModelUi.ModelPanel(self.statusBar)
+        self.model_panel3 = UncertaintyPropagationUi.UncertaintyPropagationPanel(self.statusBar)
+        self.model_panel4 = ModelUi.ModelPanel(self.statusBar)
         self.statusBar.AddPage(self.model_panel, u"仿真模型管理", True)
-#         self.statusBar.AddPage(self.model_panel2, u"不确定性建模", False)
-#         self.statusBar.AddPage(self.model_panel3, u"不确定性传播分析", False)
-#         self.statusBar.AddPage(self.model_panel4, u"仿真验证分析", True)
+        self.statusBar.AddPage(self.model_panel2, u"不确定性建模", False)
+        self.statusBar.AddPage(self.model_panel3, u"不确定性传播分析", False)
+        self.statusBar.AddPage(self.model_panel4, u"仿真验证分析", True)
         
         self.main_panel.Layout()
         self.main_panel.Bind(wx.EVT_SIZE, self.OnReSize)

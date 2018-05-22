@@ -127,9 +127,8 @@ class UTNotebook(aui.AuiNotebook):
         self.select_method_panel.set_kind_and_para_and_name(self.kind,self.name,self.method,self.para)
         self.AddPage(self.select_method_panel, u"抽样方法", True, wx.NullBitmap)
 
-    def up_test_plan(self):
-        """ 实验方案生成展示 """
-        print(self.name[0])
-        self.plan_panel = UPShowPanel.ShowPlanPanel(self,name=self.name)
+    def up_test(self):
+        """ 传播实验展示 """
+        self.test_panel = UPShowPanel.TestPanel(self, name=self.name)
         # self.plan_panel.set_name(self.name)
-        self.AddPage(self.plan_panel, u"实验方案", True, wx.NullBitmap)
+        self.AddPage(self.test_panel, u"传播分析", True, wx.NullBitmap)

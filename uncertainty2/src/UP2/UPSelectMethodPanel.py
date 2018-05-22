@@ -82,19 +82,15 @@ class SelectSamplingMethodPanel(wx.Panel):
     def __del__(self):
         pass
 
-    def set_kind_and_para(self, kind, *para):
-        """ 外部设置分布类型和参数 """
-        self.kind = kind
-        self.para = para
-        # self.set_method_enable()  # 重新设置可选的抽样方法
-
     def set_kind_and_para_and_name(self, kind,name,method ,*para):
-        """ 外部设置分布类型和参数以及参数名称 """
+        """ 外部设置分布类型、抽样方法和参数以及参数名称 """
         self.kind = kind
         self.para = para
         self.name = name
         self.method_name = method
 
+    # 等待写操作完成的方法
+    # FIXME: 进度条控制没有添加完成
     def wait_writing(self,range):
         self.end = 0
         try:
@@ -103,7 +99,7 @@ class SelectSamplingMethodPanel(wx.Panel):
             print "Error: unable to start thread"
 
 
-
+    # FIXME: 进度条由此处发消息进行控制
     def writing(self):
         # 循环抽样并写入所有的参数的抽样结果 生成抽样实验方案
         self.count = 0
@@ -114,13 +110,15 @@ class SelectSamplingMethodPanel(wx.Panel):
         print 'Finished creating samples.'
         self.end = 1
 
+    # 展示结果的方法
+    # FIXME: 布局有点混乱 会覆盖前面的输入框
     def show_result(self, event):
         '''Table'''
         self.m_panel_table = wx.Panel(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
         self.m_panel_table.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_SCROLLBAR))
 
         bSizer_table = wx.BoxSizer(wx.HORIZONTAL)
-        self.m_grid4 = wx.grid.Grid(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_grid4 = wx.grid.Grid(self, wx.ID_ANY, (1000,200), wx.DefaultSize, 0)
         result = Sql.show_sampling_result(self.name[0])
         # 先通过一个名字获得结果长度建表 再在后面获取每行每列值
         # Grid
@@ -135,6 +133,10 @@ class SelectSamplingMethodPanel(wx.Panel):
         self.m_grid4.EnableDragColSize(True)
         self.m_grid4.SetColLabelSize(30)
         self.m_grid4.SetColLabelAlignment(wx.ALIGN_CENTRE, wx.ALIGN_CENTRE)
+        i = 0
+        for namei in self.name:
+            self.m_grid4.SetColLabelValue(i, namei)
+            i += 1
 
         # 根据参数名获取相应的抽样数据
         results = []
@@ -207,6 +209,4 @@ class SelectSamplingMethodPanel(wx.Panel):
         #     print "Error: unable to start thread"
 
     def SQLrun(self,arg_name, result):
-
-        # Sql.insert_sampling_result(result, self.kind, method_name)
         Sql.insert_sampling_result(arg_name, result)
